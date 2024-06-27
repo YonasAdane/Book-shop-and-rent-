@@ -29,7 +29,7 @@ console.log('succcess',dat);
                 <li ><a href="/LetsGO/auth/login.php" class="p-2 bg-blue-600 text-white rounded-lg hover:text-gray-300">Login</a></li>
             </ul>
         </nav>
-        <section class="w-full h-[80vh] md:p-8 bg-cover bg-center" style="background-image: url('../sandro-antonietti-JHMlN41jM0M-unsplash.jpg');">
+        <section class="w-full h-[80vh] md:p-8 bg-cover bg-center" style="background-image: url('../assets/sandro-antonietti-JHMlN41jM0M-unsplash.jpg');">
             <form action="./search.php" method="POST" class="bg-gray-50/70 w-full flex flex-col justify-center gap-4 relative rounded-xl p-8 pb-10 mt-0 sm:mt-10">
                 <h1 class="text-center text-3xl font-body text-white font-semibold">PICK A BUS</h1>
                 <div class="w-full flex justify-between bg-slate-100 border rounded-xl items-center">

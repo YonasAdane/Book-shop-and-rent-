@@ -7,6 +7,16 @@ $message = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
+   
+    $sql="SELECT * FROM admin WHERE AdminEmail='$email' and AdminPassword='$password'";
+    $result=$conn->query($sql);
+    if($result->num_rows>0){
+        session_start();
+        $row=$result->fetch_assoc();
+        $_SESSION['admin_id']=$row['AdminID'];
+        header("Location: /LetsGO/admin/dashboard.php");
+        exit();
+    }
     $password=md5($password);
 
 
@@ -31,18 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: /LetsGO/driver/dashboard.php");
         exit();
     }
-    // Validate Admin login
-    $sql="SELECT * FROM admin WHERE AdminEmail='$email' and AdminPassword='$password'";
-    $result=$conn->query($sql);
-    if($result->num_rows>0){
-        session_start();
-        $row=$result->fetch_assoc();
-        $_SESSION['admin_id']=$row['AdminID'];
-                // $_SESSION['adminEmail'] = $admin['AdminEmail'];
-        header("Location: /LetsGO/admin/dashboard.php");
-        exit();
-    }
-
     $message = 'Invalid email or password. Please try again.';
 }
 ?>
