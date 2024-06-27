@@ -1,9 +1,9 @@
 
-# Bus Booking System
+# LetsGO ticketing System
 
 ## Overview
 
-This Bus Booking System is a web application that allows users to book bus tickets online, view schedules, and manage their profiles. Admins can manage buses, routes, schedules, and users. Drivers can view their assigned routes and validate tickets.
+LetsGO ticketing System is a web application that allows users to book bus tickets online, view schedules, and manage their profiles. Admins can manage buses, routes, schedules, and users. Drivers can view their assigned routes and validate tickets.
 
 ## Features
 
@@ -150,7 +150,3 @@ Refer to the SQL scripts provided in the project for detailed table structures.
  3. Hanamariam Mesfin  UGR/25483/14
  4. Etsehiwot Mengistu UGR/25562/14
  5. Abuzer Jemal       UGR/25351/14
-
-## Contact
-
-For any inquiries or issues, please contact [yonasadane94@gmail.com].
