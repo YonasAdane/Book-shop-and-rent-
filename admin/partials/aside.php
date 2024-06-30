@@ -29,7 +29,7 @@
         </a>
         <a href="/LetsGO/admin/add-buzzType.php" :class="thisPath== '/LetsGO/admin/add-buzzType.php' ? 'active-nav-link' : '' " class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
             <i class="fa-solid fa-plus mr-3"></i>
-            Add Bus category
+            Add Bus Model
         </a>
         <a href="/LetsGO/admin/routes.php" :class="thisPath== '/LetsGO/admin/routes.php' ? 'active-nav-link' : '' " class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
             <i class="fa-solid fa-road mr-3"></i>
