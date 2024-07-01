@@ -47,7 +47,7 @@ include("../database/connection.php");
                     VALUES ($userID, $ticketID, '$paymentMethod', $price, 'Completed')";
             $conn->query($sql);
                 ?>
-            <div class="bg-white p-4 rounded-lg shadow-lg flex flex-col-reverse md:flex-row md:justify-between align-middle">  
+            <div class="md:w-4/5 bg-white p-4 mx-auto rounded-lg shadow-lg flex flex-col-reverse md:flex-row md:justify-center md:gap-32 align-middle">  
                 <div class="flex flex-col ">
                     <h2 class="text-2xl font-bold p-6 mb-4">Your Ticket</h2>
                     <!-- <p class="mb-2"><strong>Ticket ID:</strong> <?php //echo $ticketID ?></p> -->
@@ -75,7 +75,7 @@ include("../database/connection.php");
                 </div>
                 <div id="qrCodeContainer"></div>
             </div>
-            <h1 class="text-3xl font-semibold border-yellow-400 border-2 p-4 rounded-md shadow-md mx-auto mt-2">Take Screenshoot of this page</h1>
+            <h1 class="md:w-4/5 text-3xl font-semibold border-yellow-400 border-2 p-4 rounded-md shadow-md mx-auto mt-2">Take Screenshoot of this page</h1>
             <?php 
         } else {
             echo '<p class="text-red-500">Error: ' . $conn->error . '</p>';
