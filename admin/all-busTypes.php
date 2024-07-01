@@ -18,11 +18,13 @@ if (isset($_POST['UpdateBusCategory'])) {
     $busSeatNumbers = intval($_POST['BusSeatNumbers']);
     $priceFactor = $conn->real_escape_string($_POST['priceFactor']);
     $busLevel = $conn->real_escape_string($_POST['BusLevel']);
-    $sqlu = "UPDATE BusCategory SET BusName='$busName', BusSeatNumbers=$busSeatNumbers, priceFactor='$priceFactor', BusLevel='$busLevel' WHERE BusCategoryID=$busCategoryID";
+    $sqlu = "UPDATE BusCategory SET BusName='$busName', BusSeatNumbers=$busSeatNumbers, priceFactor=$priceFactor, BusLevel='$busLevel' WHERE BusCategoryID=$busCategoryID";
     if ($conn->query($sqlu) === TRUE) {
-        echo "<p class='text-green-500 text-center'>Bus category updated successfully</p>";
+        $message="Bus category updated successfully";
+        $status="green";
     } else {
-        echo "<p class='text-red-500 text-center'>Error updating bus category: " . $conn->error . "</p>";
+        $status="red";
+        $message="Error updating bus category";
     }
 }
 ?>
@@ -48,13 +50,14 @@ if (isset($_POST['UpdateBusCategory'])) {
             <main class="w-full flex-grow ">
                 <!-- Content  -->
                 
-                <section class='w-full border rounded-lg shadow-lg'>
+                <section x-data="{opened:true}" class='w-full border rounded-lg shadow-lg'>
                     <div class='p-4 border-b '>
                         <h1 class="text-3xl text-black ">All Bus Types</h1>
                     </div>
                     <?php if(!$status==null){?>
-                    <div class="border-2 rounded-lg mx-auto border-<?php echo $status?>-500 w-3/5 text-center p-3 bg-<?php echo $status?>-300  top-0 ">
+                    <div x-show="opened" class="border-2 rounded-lg mx-auto flex justify-between border-<?php echo $status?>-500 w-3/5 text-center p-3 bg-<?php echo $status?>-300  top-0 ">
                         <h2 class=""><?php echo $message?></h2>
+                        <div @click="opened = !opened" class="border-red-500 border px-2 py-0 rounded-sm">x</div>
                     </div>
                     <?php }?>
                          
