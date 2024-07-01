@@ -31,6 +31,7 @@ CREATE TABLE BusCategory (
     BusSeatNumbers INT,
     BusCategory VARCHAR(50),
     BusLevel VARCHAR(10),
+    priceFactor DECIMAL(5,5) NOT NULL DEFAULT 0.76000,
     PRIMARY KEY (BusCategoryID)
 );
 CREATE TABLE Bus (
@@ -65,16 +66,6 @@ CREATE TABLE Ticket (
     FOREIGN KEY (UserID) REFERENCES User(UserID),
     FOREIGN KEY (BusID) REFERENCES Bus(BusID),
     FOREIGN KEY (DriverID) REFERENCES Driver(DriverID)
-);
-CREATE TABLE Reservation (
-    ReservationID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT,
-    TicketID INT,
-    SeatNumber INT NOT NULL,
-    ReservationDateTime DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    FOREIGN KEY (UserID) REFERENCES User(UserID),
-    FOREIGN KEY (TicketID) REFERENCES Ticket(TicketID),
-    FOREIGN KEY (SeatNumber) REFERENCES Ticket(SeatNumber)
 );
 CREATE TABLE Payment (
     PaymentID INT AUTO_INCREMENT,
@@ -149,25 +140,6 @@ VALUES
     ('Abel Gezu', 'abel@example.com', '1111111111', 'China', 'password1'),
     ('Asegid Adane', 'asegid@example.com', '9999999999', 'Dubai', 'password2'),
     ('Yohannes Gezachew', 'yohannes@example.com', '5555555555', 'Addis Ababa', 'password3');
-CREATE VIEW UserReservations AS
-SELECT 
-    u.UserID, 
-    u.UserName, 
-    u.UserEmail, 
-    u.UserPhone, 
-    r.ReservationID, 
-    r.SeatNumber, 
-    r.ReservationDateTime, 
-    t.DepartureCity, 
-    t.DestinationCity, 
-    t.DepartureDateTime, 
-    t.ArrivalDateTime
-FROM 
-    User u
-JOIN 
-    Reservation r ON u.UserID = r.UserID
-JOIN 
-    Ticket t ON r.TicketID = t.TicketID;
 CREATE VIEW DriverBuses AS
 SELECT 
     d.DriverID, 
@@ -285,11 +257,6 @@ FROM
     Driver d
 left JOIN
     Bus b ON d.DriverID = b.DriverID;
-SELECT DriverID, DriverName FROM Driver WHERE DriverID NOT IN (SELECT DriverID FROM Bus) LIMIT 100;
-SELECT d.DriverID, d.DriverName, d.DriverEmail, d.DriverPhone, d.DriverAddress
-FROM Driver d
-LEFT JOIN Bus b ON d.DriverID = b.DriverID
-WHERE b.DriverID IS NULL LIMIT 100;
 CREATE VIEW BusDriverRouteView AS
 SELECT 
     bc.BusName,
@@ -308,8 +275,8 @@ JOIN
     BusCategory bc ON b.BusCategoryID = bc.BusCategoryID
 JOIN 
     Route r ON b.RouteID = r.RouteID;
-ALTER TABLE BusCategory
-ADD COLUMN priceFactor DECIMAL(5,5) NOT NULL DEFAULT 0.76000;
+-- ALTER TABLE BusCategory
+-- ADD COLUMN priceFactor DECIMAL(5,5) NOT NULL DEFAULT 0.76000;
 
 CREATE VIEW UserTicketView AS
 SELECT 
@@ -339,13 +306,6 @@ FROM Ticket
 JOIN User ON Ticket.UserID = User.UserID
 JOIN Bus ON Ticket.BusID = Bus.BusID
 JOIN Driver ON Ticket.DriverID = Driver.DriverID;
-DELETE FROM `ticket` WHERE `TicketID` IN (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19);
-SET FOREIGN_KEY_CHECKS=0;
-DELETE FROM `ticket` WHERE `TicketID` IN (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19);
-SET FOREIGN_KEY_CHECKS=1;
-SET FOREIGN_KEY_CHECKS=0;
-DELETE FROM `payment` WHERE `PaymentID` IN (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
-SET FOREIGN_KEY_CHECKS=1;
 
 CREATE TABLE Admin (
     AdminID INT NOT NULL AUTO_INCREMENT,
@@ -354,8 +314,7 @@ CREATE TABLE Admin (
     AdminPassword VARCHAR(100),
     PRIMARY KEY (AdminID)
 );
-INSERT INTO admin(AdminEmail,AdminPassword,AdminName) VALUES('root@ticket.com','root','root');
-INSERT INTO `driver`(`DriverEmail`,`DriverAddress`,`DriverName`,`DriverPhone`,`DriverPassword`) VALUES('zapi@gmail.com','addis ababa','Zapi Doja','09304212','123456');
+-- INSERT INTO `driver`(`DriverEmail`,`DriverAddress`,`DriverName`,`DriverPhone`,`DriverPassword`) VALUES('zapi@gmail.com','addis ababa','Zapi Doja','09304212','123456');
 DELETE FROM `driver` WHERE `DriverID`=15;
 SELECT 
     Bus.BusID,
@@ -379,8 +338,6 @@ JOIN
     BusCategory ON Bus.BusCategoryID = BusCategory.BusCategoryID LIMIT 100;
 ALTER TABLE BusCategory
 ADD COLUMN BusPicture LONGTEXT;
-DELETE FROM `buscategory` WHERE `BusCategoryID`=8;
-DELETE FROM `buscategory` WHERE `BusCategoryID`=9;
 CREATE VIEW BDCRouteView AS
 SELECT 
     bc.BusName,
@@ -401,4 +358,9 @@ JOIN
 JOIN 
     Route r ON b.RouteID = r.RouteID;
     use letsgov1;
+
+ALTER TABLE Ticket ADD COLUMN ScheduleID INT;
+ALTER TABLE Ticket ADD FOREIGN KEY (ScheduleID) REFERENCES Schedule(ScheduleID);
+ALTER TABLE `buscategory` 
+	CHANGE `priceFactor` `priceFactor` float NOT NULL DEFAULT 0.76 ;
 INSERT INTO admin(AdminEmail,AdminPassword,AdminName) VALUES('admin@gmail.com','123456','admin');
