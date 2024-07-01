@@ -61,8 +61,8 @@ $result = $conn->query($sql);
                         <table class="min-w-full ">
                             <thead class="bg-gray-800 text-white">
                                 <tr>
-                                    <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
-                                    <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Phone</th>
+                                    <th class="w-1/4 text-left py-3 px-4 uppercase font-semibold text-sm">Name</th>
+                                    <th class="w-1/5 text-left py-3 px-4 uppercase font-semibold text-sm">Phone</th>
                                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
                                     <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Address</th>
                                 </tr>
